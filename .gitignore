@@ -1,0 +1,6 @@
+# Intellij
+.idea/
+*.iws
+
+# Mac
+.DS_Store
