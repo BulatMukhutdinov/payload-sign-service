@@ -1,8 +1,8 @@
 package jp.co.soramitsu.util;
 
-public class Strings {
+public class Const {
 
-    private Strings() {
+    private Const() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
 

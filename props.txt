@@ -1,0 +1,7 @@
+this.public_key=b373ff6f6ecacb16addd03a0691b827f675aac402236d95022dedf8202fcccbd
+this.private_key=881e179b8d6900f892b43c7010c77e47731711735dae462ba9a8d12a9d956e58ab5bce5597a9914b0a743fccd3c56e521c1b59d73391d8ae33cc3667c5068539
+this.port=50051
+this.id=admin@test
+
+iroha.address=104.198.182.246
+iroha.port=50051
