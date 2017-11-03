@@ -1,21 +1,40 @@
 group 'jp.co.soramitsu.iroha'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 apply plugin: 'java'
 apply plugin: 'com.google.protobuf'
+apply plugin: 'application'
+
+mainClassName  = 'jp.co.soramitsu.App'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 buildscript {
     repositories {
+        jcenter()
         mavenCentral()
     }
     dependencies {
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.3'
         classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.8.RELEASE'
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.3'
     }
 }
+
+task uberjar(type: Jar) {
+    from files(sourceSets.main.output.classesDir)
+    from {configurations.compile.collect {zipTree(it)}} {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
+
+    manifest {
+        attributes 'Main-Class': 'jp.co.soramitsu.App'
+    }
+}
+
 
 repositories {
     mavenCentral()
