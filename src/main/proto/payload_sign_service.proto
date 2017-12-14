@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "google/protobuf/empty.proto";
+
 option java_multiple_files = true;
 option java_outer_classname = "PayloadSignServiceProto";
 
@@ -8,6 +10,8 @@ package jp.co.soramitsu.payloadsignservice;
 service PayloadSignService {
     rpc CreateAccount (CreateAccountRequest) returns (CreateAccountResponse);
     rpc Status (StatusRequest) returns (StatusResponse);
+    rpc SetAccountDetail (SetAccountDetailRequest) returns (google.protobuf.Empty);
+    rpc GetAccount (GetAccountRequest) returns (GetAccountResponse);
 }
 
 message CreateAccountRequest {
@@ -25,16 +29,34 @@ message StatusRequest {
 }
 
 message StatusResponse {
+    enum Status {
+        STATELESS_VALIDATION_FAILED = 0;
+        STATELESS_VALIDATION_SUCCESS = 1;
+        STATEFUL_VALIDATION_FAILED = 2;
+        STATEFUL_VALIDATION_SUCCESS = 3;
+        COMMITTED = 4;
+        ON_PROCESS = 5;
+        NOT_RECEIVED = 6;
+    }
     Status status = 1;
 }
 
+message SetAccountDetailRequest {
+    string account_id = 1;
+    string key = 2;
+    string value = 3;
+}
 
-enum Status {
-    STATELESS_VALIDATION_FAILED = 0;
-    STATELESS_VALIDATION_SUCCESS = 1;
-    STATEFUL_VALIDATION_FAILED = 2;
-    STATEFUL_VALIDATION_SUCCESS = 3;
-    COMMITTED = 4;
-    ON_PROCESS = 5;
-    NOT_RECEIVED = 6;
+message GetAccountRequest {
+    string account_id = 1;
+}
+
+message GetAccountResponse {
+    message Account {
+        string account_id = 1;
+        string domain_id = 2;
+        uint32 quorum = 3;
+        string json_data = 4;
+    }
+    Account account = 1;
 }
